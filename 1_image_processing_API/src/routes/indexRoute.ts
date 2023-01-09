@@ -7,7 +7,7 @@ const routes: express.Router = express.Router();
 routes.use('/api/images', images);
 
 // Usage
-routes.get('/', (req, res) => {
+routes.get('/', (req, res): void => {
   res.send(
     '<h1>Usage</h1>' +
       '<p>localhost:3000/api/images?filename=x&width=y&height=z where:</p>' +

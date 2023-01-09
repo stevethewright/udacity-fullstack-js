@@ -1,11 +1,12 @@
 import express from 'express';
 import path from 'path';
-import { existsSync, promises as fsPromises } from 'fs';
-import sharp from 'sharp';
+import { existsSync, promises as fs } from 'fs';
+import resizeImage from '../../utlilities/image.util';
+
 const images: express.Router = express.Router();
 
 // API Image Route
-images.get('/', (req, res) => {
+images.get('/', async (req, res): Promise<void> => {
   const filename: string = req.query.filename as string;
   const width: number = parseInt(req.query.width as string);
   const height: number = parseInt(req.query.height as string);
@@ -28,23 +29,14 @@ images.get('/', (req, res) => {
   } else {
     if (existsSync(path.resolve('src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg'))) {
       console.log('Serving ' + filename + '_thumb_' + width + 'x' + height + '.jpg');
-      res
-        .status(200)
-        .sendFile(path.resolve('src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg'));
+      res.status(200).sendFile(path.resolve('src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg'));
     } else {
-      const fullFile = path.resolve('src/assets/full/' + filename + '.jpg');
-      sharp(fullFile)
-        .resize(width, height, {
-          kernel: sharp.kernel.nearest,
-          fit: 'cover'
-        })
-        .toFile('./src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg')
-        .then(() => {
-          console.log('Created ' + filename + '_thumb_' + width + 'x' + height + '.jpg');
-          res
-            .status(200)
-            .sendFile(path.resolve('src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg'));
-        });
+      const success = await resizeImage(filename, width, height);
+      if (success) {
+        res.status(200).sendFile(path.resolve('src/assets/thumb/' + filename + '_thumb_' + width + 'x' + height + '.jpg'));
+      } else {
+        res.status(500).send("Error with resizing.");
+      }
     }
   }
 });
