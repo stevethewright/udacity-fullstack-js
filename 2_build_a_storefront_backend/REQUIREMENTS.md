@@ -42,7 +42,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Database Schema
 
-- Table: Products(productID: SERIAL PRIMARY KEY, name:VARCHAR, price:decimal)
-- Table: Users(userID: SERIAL PRIMARY KEY, firstName:VARCHAR, lastName:VARCHAR, passwordDigest: VARCHAR)
-- Table: Orders(orderID: SERIAL PRIMARY KEY, status: VARCHAR, userID: bigint [Foreign Key to Users Table])
-- Table: Order_Products(id: SERIAL PRIMARY KEY, quantity: integer, orderID: bigint [Foreign Key to Orders Table], productID: bigint [Foreign Key to Products Table])
+- Table: Products(id: SERIAL PRIMARY KEY, name:VARCHAR, price:decimal)
+- Table: Users(id: SERIAL PRIMARY KEY, first_name:VARCHAR, last_name:VARCHAR, password_digest: VARCHAR)
+- Table: Orders(id: SERIAL PRIMARY KEY, status: VARCHAR, userID: BIGINT [Foreign Key to Users Table])
+- Table: Order_Products(id: SERIAL PRIMARY KEY, quantity: integer, order_id: BIGINT [Foreign Key to Orders Table], product_id: BIGINT [Foreign Key to Products Table])
