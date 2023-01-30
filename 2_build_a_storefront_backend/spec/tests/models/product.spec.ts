@@ -1,3 +1,5 @@
+import '@types/jasmine';
+
 import { Product, ProductStore } from '../../../src/models/product';
 
 const store = new ProductStore();

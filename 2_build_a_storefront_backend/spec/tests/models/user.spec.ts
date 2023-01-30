@@ -1,3 +1,5 @@
+import '@types/jasmine';
+
 import { User, UserStore } from '../../../src/models/user';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';

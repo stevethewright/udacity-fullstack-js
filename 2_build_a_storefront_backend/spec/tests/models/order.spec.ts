@@ -1,3 +1,5 @@
+import '@types/jasmine';
+
 import { Order, OrderProduct, OrderStore } from '../../../src/models/order';
 import { Product, ProductStore } from '../../../src/models/product';
 import { User, UserStore } from '../../../src/models/user';
