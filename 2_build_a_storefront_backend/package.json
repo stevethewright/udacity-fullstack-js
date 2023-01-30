@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "ENV=test && npx tsc && db-migrate reset --env test && db-migrate --env test up && jasmine-ts",
+    "test": "npx tsc && db-migrate reset -e test && db-migrate --e test up && cross-env ENV=test jasmine-ts",
     "tsc": "tsc"
   },
   "author": "Udacity",
@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.3",

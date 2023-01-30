@@ -15,7 +15,7 @@ const {
     TOKEN_SECRET
 } = process.env;
 
-describe('Product handler', () => {
+describe('User handler', () => {
   
     it('should not get all users when missing a token', async () => {
         const response = await request.get('/users/');
@@ -41,15 +41,8 @@ describe('Product handler', () => {
         expect(response.status).toEqual(200);
     });
 
-    it('should not add a new user when missing a token', async () => {
-        const payload = { first_name: 'John', last_name: 'Bill', password: 'bad_password3'};
-        const response = await request.post('/users/').send(payload);
-        expect(response.status).toEqual(401);
-    });
-
     it('should add a new user', async () => {
-        const token = EXAMPLE_TEST_TOKEN;
-        const payload = { first_name: 'John', last_name: 'Bill', password: 'bad_password3', token: token};
+        const payload = { first_name: 'John', last_name: 'Bill', password: 'bad_password3'};
         const response = await request.post('/users/').send(payload);
         expect(response.status).toEqual(200);
     });

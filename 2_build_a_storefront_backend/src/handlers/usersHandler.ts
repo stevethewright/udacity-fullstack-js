@@ -40,14 +40,6 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
     try {
-        const secret = TOKEN_SECRET;
-        jwt.verify(req.body.token, secret!);
-    } catch(err) {
-        res.status(401);
-        res.json('Access denied, invalid token');
-        return;
-    }
-    try {
         const user: User = {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
