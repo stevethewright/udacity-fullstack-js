@@ -10,21 +10,21 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Create [token required] - /products [POST]
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
-- [ADDED] Destroy - /products/:id [DELETE]
+- [ADDED] Destroy [token required] - /products/:id [DELETE]
 
 #### Users
 - Index [token required] - /users [GET]
 - Show [token required] - /users/:id [GET]
 - Create N[token required] - /users [POST]
-- [ADDED] Destroy - /users/:id [DELETE]
+- [ADDED] Destroy [token required] - /users/:id [DELETE]
 
 #### Orders
 - Current Order by user (args: user id)[token required] - /users/:userID/orders/:orderID/products [GET]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
-- [ADDED] Index /orders [GET]
-- [ADDED] Show /orders [GET]
-- [ADDED] Create /orders [POST]
-- [ADDED] Destroy /orders [DELETE]
+- [ADDED] Index [token required] /orders [GET]
+- [ADDED] Show [token required] /orders [GET]
+- [ADDED] Create [token required] /orders [POST]
+- [ADDED] Destroy [token required] /orders [DELETE]
 
 ## Data Shapes
 #### Product

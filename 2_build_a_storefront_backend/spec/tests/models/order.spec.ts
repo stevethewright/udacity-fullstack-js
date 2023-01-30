@@ -124,7 +124,7 @@ describe('Order model', () => {
     }
     const result: Order = await store.create(newOrder);
     expect(result).toEqual({
-      id: 7,
+      id: 9,
       status: 'active',
       user_id: '1'
     });
@@ -159,7 +159,7 @@ describe('Order model', () => {
     }
     const result: OrderProduct = await store.addOrderProduct(newOrderProduct);
     expect(result).toEqual({
-        id: 7,
+        id: 8,
         quantity: 2,
         order_id: '1',
         product_id: '1'

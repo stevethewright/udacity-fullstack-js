@@ -64,6 +64,14 @@ const create = async (req: Request, res: Response) => {
 }
 
 const destroy = async (req: Request, res: Response) => {
+    try {
+        const secret = TOKEN_SECRET;
+        jwt.verify(req.body.token, secret!);
+    } catch(err) {
+        res.status(401);
+        res.json('Access denied, invalid token');
+        return;
+    }
     const id: number = parseInt(req.params.id);
     const deleted = await store.delete(id);
     res.json(deleted);

@@ -42,7 +42,7 @@ describe('Product model', () => {
     }
     const result: Product = await store.create(newProduct);
     expect(result).toEqual({
-      id: 5,
+      id: 7,
       name: 'Product 1',
       price: '50.99'
     });

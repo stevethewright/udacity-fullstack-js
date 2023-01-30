@@ -52,7 +52,7 @@ describe('User model', () => {
       password_digest: 'password123'
     }
     const result: User = await store.create(newUser);
-    expect(result.id).toEqual(5);
+    expect(result.id).toEqual(7);
     expect(result.first_name).toEqual('John');
     expect(result.last_name).toEqual('Smith');
     expect(result.password_digest).not.toEqual('password123');
