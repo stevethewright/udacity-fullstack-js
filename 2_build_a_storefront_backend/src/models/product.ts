@@ -1,9 +1,9 @@
 import Client from '../database';
 
 export type Product = {
-    id: number;
+    id?: number;
     name: string;
-    price: number | string;
+    price: string;
 }
 
 export class ProductStore {
@@ -31,16 +31,16 @@ export class ProductStore {
         }
     }
 
-    async create(name: string, price: number): Promise<Product> {
+    async create(p: Product): Promise<Product> {
         try {
             const conn = await Client.connect();
             const sql = 'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *';
-            const result = await conn.query(sql, [name, price]);
+            const result = await conn.query(sql, [p.name, p.price]);
             conn.release();
             const product = result.rows[0];
             return product;
         } catch (err) {
-            throw new Error(`Cannot add new product ${name}. Error: ${err}`);
+            throw new Error(`Cannot add new product ${p.name}. Error: ${err}`);
         }
     }
 

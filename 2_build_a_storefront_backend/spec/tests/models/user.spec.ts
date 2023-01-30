@@ -11,8 +11,18 @@ const {
 } = process.env;
 
 beforeAll(async (): Promise<void> => {
-  await store.create('Before', 'User', 'smartPassword4');
-  await store.create('Delete', 'User2', '1234');
+  let user1: User = {
+    first_name: 'Before',
+    last_name: 'User', 
+    password_digest: 'smartPassword4'
+  }
+  let user2: User = {
+    first_name: 'Delete',
+    last_name: 'User2',
+    password_digest: '1234'
+  }
+  await store.create(user1);
+  await store.create(user2);
 });
 
 describe('User model', () => {
@@ -34,7 +44,12 @@ describe('User model', () => {
   });
 
   it('should create a new user in the database', async () => {
-    const result: User = await store.create('John', 'Smith', 'password123');
+    const newUser: User = {
+      first_name: 'John',  
+      last_name: 'Smith',
+      password_digest: 'password123'
+    }
+    const result: User = await store.create(newUser);
     expect(result.id).toEqual(5);
     expect(result.first_name).toEqual('John');
     expect(result.last_name).toEqual('Smith');

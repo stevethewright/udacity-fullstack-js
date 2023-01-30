@@ -7,11 +7,94 @@ const userStore = new UserStore();
 const productStore = new ProductStore();
 
 beforeAll(async (): Promise<void> => {
-    await userStore.create('Bob', 'Jones', 'exampleBob');
-    await userStore.create('Jimmy', 'Jones', 'exampleJames');
-    await productStore.create('A Good Product', 2.25);
-    await store.create('Active', 1);
-    await store.create('Completed', 2);
+    let user1: User = {
+      first_name: 'Bob', 
+      last_name: 'Jones', 
+      password_digest: 'exampleBob'
+    }
+    let user2: User = {
+      first_name: 'Jimmy',
+      last_name: 'Jones',
+      password_digest: 'exampleJames'
+    }
+    let product1: Product = {
+      name: 'A Good Product', 
+      price: '2.25'
+    }
+    let product2: Product = {
+      name: 'An even better Product', 
+      price: '1000'
+    }
+    let order1: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    let order2: Order = {
+      status: 'complete',
+      user_id: 2
+    }
+    let order3: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    let order4: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    let order5: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    let order6: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    let orderProduct1: OrderProduct = {
+      quantity: 100,
+      order_id: 3,
+      product_id: 1
+    }
+    let orderProduct2: OrderProduct = {
+      quantity: 867,
+      order_id: 3,
+      product_id: 2
+    }
+    let orderProduct3: OrderProduct = {
+      quantity: 90,
+      order_id: 4,
+      product_id: 2
+    }
+    let orderProduct4: OrderProduct = {
+      quantity: 22,
+      order_id: 5,
+      product_id: 2
+    }
+    let orderProduct5: OrderProduct = {
+      quantity: 22,
+      order_id: 6,
+      product_id: 2
+    }
+    let orderProduct6: OrderProduct = {
+      quantity: 12,
+      order_id: 6,
+      product_id: 1
+    }
+    await userStore.create(user1);
+    await userStore.create(user2);
+    await productStore.create(product1);
+    await productStore.create(product2);
+    await store.create(order1);
+    await store.create(order2);
+    await store.create(order3);
+    await store.create(order4);
+    await store.create(order5);
+    await store.create(order6);
+    await store.addOrderProduct(orderProduct1);
+    await store.addOrderProduct(orderProduct2);
+    await store.addOrderProduct(orderProduct3);
+    await store.addOrderProduct(orderProduct4);
+    await store.addOrderProduct(orderProduct5);
+    await store.addOrderProduct(orderProduct6);
 });
 
 describe('Order model', () => {
@@ -33,10 +116,14 @@ describe('Order model', () => {
   });
 
   it('should create a new order in the database', async () => {
-    const result: Order = await store.create('Waiting Payment', 1);
+    const newOrder: Order = {
+      status: 'active',
+      user_id: 1
+    }
+    const result: Order = await store.create(newOrder);
     expect(result).toEqual({
-      id: 3,
-      status: 'Waiting Payment',
+      id: 7,
+      status: 'active',
       user_id: '1'
     });
   });
@@ -46,16 +133,16 @@ describe('Order model', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('should show a order product in the database', async () => {
+  it('should show an order in the database', async () => {
     const result: Order = await store.show(1);
     expect(result).toEqual({
       id: 1,
-      status: 'Active',
+      status: 'active',
       user_id: '1'
     });
   });
 
-  it('should delete a order product in the database', async () => {
+  it('should delete an order in the database', async () => {
     const beforeLen: number = (await store.index()).length;
     await store.delete(2);
     const afterLen: number = (await store.index()).length;
@@ -63,13 +150,55 @@ describe('Order model', () => {
   });
 
   it('should add a product to an order', async () => {
-    const result: OrderProduct = await store.addProduct(2, 1, 1);
+    const newOrderProduct: OrderProduct = {
+      quantity: 2,
+      order_id: 1,
+      product_id: 1
+    }
+    const result: OrderProduct = await store.addOrderProduct(newOrderProduct);
     expect(result).toEqual({
-        id: 1,
+        id: 7,
         quantity: 2,
         order_id: '1',
         product_id: '1'
     });
   });
+
+  it('should show the products in an order in the database', async () => {
+    const result: OrderProduct[] = await store.getOrderProducts(3);
+    expect(result[0]).toEqual({
+      id: 1,
+      quantity: 100,
+      order_id: '3',
+      product_id: '1'
+    });
+    expect(result[1]).toEqual({
+      id: 2,
+      quantity: 867,
+      order_id: '3',
+      product_id: '2'
+    });
+  });
+
+  it('should delete a product in an order in the database', async () => {
+    const beforeLen: number = (await store.getOrderProducts(6)).length;
+    await store.deleteOrderProduct(6);
+    const afterLen: number  = (await store.getOrderProducts(6)).length;
+    expect(afterLen).toEqual((beforeLen - 1));
+  });
+
+  it('should update a product quantity in an order in the database', async () => {
+    const before: OrderProduct[] = await store.getOrderProducts(6);
+    expect(before[0].quantity).toEqual(22);
+    await store.updateOrderProductQuantity(5, 1);
+    const after: OrderProduct[] = await store.getOrderProducts(6);
+    after.forEach(orderProduct => {
+      if (orderProduct.id === 5) {
+        expect(orderProduct.quantity).toEqual(1);
+      }
+    });
+  });
+
+  
 
 });

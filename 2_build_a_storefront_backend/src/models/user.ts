@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 export type User = {
-    id: number;
+    id?: number;
     first_name: string;
     last_name: string;
     password_digest: string;
@@ -41,22 +41,22 @@ export class UserStore {
         }
     }
 
-    async create(first_name: string, last_name: string, password: string): Promise<User> {
+    async create(u: User): Promise<User> {
         const pepper = BCRYPT_PASSWORD;
         const saltRounds = SALT_ROUNDS;
         try {
             const conn = await Client.connect();
             const sql = 'INSERT INTO users (first_name, last_name, password_digest) VALUES($1, $2, $3) RETURNING *';
             const hash = bcrypt.hashSync(
-                password + pepper,
+                u.password_digest + pepper,
                 parseInt(saltRounds!)
             );
-            const result = await conn.query(sql, [first_name, last_name, hash]);
+            const result = await conn.query(sql, [u.first_name, u.last_name, hash]);
             conn.release();
             const product = result.rows[0];
             return product;
         } catch (err) {
-            throw new Error(`Cannot add new user ${first_name + last_name}. Error: ${err}`);
+            throw new Error(`Cannot add new user ${u.first_name + u.last_name}. Error: ${err}`);
         }
     }
 
