@@ -1,4 +1,4 @@
-import '@types/jasmine';
+import 'jasmine';
 
 import { Order, OrderProduct, OrderStore } from '../../../src/models/order';
 import { Product, ProductStore } from '../../../src/models/product';

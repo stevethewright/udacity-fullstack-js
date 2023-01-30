@@ -1,4 +1,4 @@
-import '@types/jasmine';
+import 'jasmine';
 
 import { User, UserStore } from '../../../src/models/user';
 import dotenv from 'dotenv';

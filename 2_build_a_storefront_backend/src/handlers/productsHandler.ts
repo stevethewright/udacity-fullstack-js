@@ -1,5 +1,12 @@
 import express, { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { Product, ProductStore } from '../models/product';
+
+dotenv.config();
+const {
+    TOKEN_SECRET
+} = process.env;
 
 const productRouter: express.Router = express.Router();
 const store = new ProductStore();
@@ -16,6 +23,15 @@ const show = async (req: Request, res: Response) => {
 }
 
 const create = async (req: Request, res: Response) => {
+    try {
+        const secret = TOKEN_SECRET;
+        jwt.verify(req.body.token, secret!);
+    } catch(err) {
+        res.status(401);
+        res.json('Access denied, invalid token');
+        return;
+    }
+
     try {
         const product: Product = {
             name: req.body.name,
