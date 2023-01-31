@@ -12,14 +12,26 @@ const productRouter: express.Router = express.Router();
 const store = new ProductStore();
 
 const index = async (_req: Request, res: Response) => {
-    const products = await store.index();
-    res.json(products);
+    try {
+        const products = await store.index();
+        res.json(products);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+   
 }
 
 const show = async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id);
-    const product = await store.show(id);
-    return res.json(product);
+    try {
+        const id: number = parseInt(req.params.id);
+        const product = await store.show(id);
+        return res.json(product);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const create = async (req: Request, res: Response) => {
@@ -46,9 +58,23 @@ const create = async (req: Request, res: Response) => {
 }
 
 const destroy = async (req: Request, res: Response) => {
-    const id: number = parseInt(req.params.id);
-    const deleted = await store.delete(id);
-    res.json(deleted);
+    try {
+        const secret = TOKEN_SECRET;
+        jwt.verify(req.body.token, secret!);
+    } catch(err) {
+        res.status(401);
+        res.json('Access denied, invalid token');
+        return;
+    }
+    
+    try {
+        const id: number = parseInt(req.params.id);
+        const deleted = await store.delete(id);
+        res.json(deleted);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 }
 
 productRouter.get('/products', index);

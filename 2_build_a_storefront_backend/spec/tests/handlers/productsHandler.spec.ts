@@ -33,7 +33,7 @@ describe('Product handler', () => {
         const response1 = await request.post('/products/').send(payload1);
         const id = response1.body.id;
         expect(response1.status).toEqual(200);
-        const payload2 = { token: token};
+        const payload2 = { token: token };
         const response2 = await request.del('/products/' + id).send(payload2);
         expect(response2.status).toEqual(200);
     });

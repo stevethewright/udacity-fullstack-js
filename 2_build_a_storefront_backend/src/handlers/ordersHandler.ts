@@ -20,8 +20,15 @@ const index = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const orders = await store.index();
-    res.json(orders);
+    
+    try {
+        const orders = await store.index();
+        res.json(orders);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const show = async (req: Request, res: Response) => {
@@ -33,9 +40,16 @@ const show = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.id);
-    const order = await store.show(id);
-    return res.json(order);
+
+    try {
+        const id: number = parseInt(req.params.id);
+        const order = await store.show(id);
+        return res.json(order);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const create = async (req: Request, res: Response) => {
@@ -47,6 +61,7 @@ const create = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
+
     try {
         const order: Order = {
             status: req.body.status,
@@ -69,9 +84,16 @@ const destroy = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.id);
-    const deleted = await store.delete(id);
-    res.json(deleted);
+
+    try {
+        const id: number = parseInt(req.params.id);
+        const deleted = await store.delete(id);
+        res.json(deleted);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const getOrderProducts = async (req: Request, res: Response) => {
@@ -83,9 +105,16 @@ const getOrderProducts = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.orderID);
-    const orderProduct = await store.getOrderProducts(id);
-    res.json(orderProduct);
+
+    try {
+        const id: number = parseInt(req.params.orderID);
+        const orderProduct = await store.getOrderProducts(id);
+        res.json(orderProduct);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const addOrderProduct = async (req: Request, res: Response) => {
@@ -97,6 +126,7 @@ const addOrderProduct = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
+
     try {
         const orderProduct: OrderProduct = {
             quantity: req.body.quantity,
@@ -120,9 +150,16 @@ const destroyOrderProduct = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.productID);
-    const deleted = await store.deleteOrderProduct(id);
-    res.json(deleted);
+
+    try {
+        const id: number = parseInt(req.params.productID);
+        const deleted = await store.deleteOrderProduct(id);
+        res.json(deleted);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const updateOrderProductQuantity = async (req: Request, res: Response) => {
@@ -134,10 +171,17 @@ const updateOrderProductQuantity = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.productID);
-    const quantity: number = parseInt(req.body.quantity);
-    const update = await store.updateOrderProductQuantity(id, quantity);
-    res.json(update);
+
+    try {
+        const id: number = parseInt(req.params.productID);
+        const quantity: number = parseInt(req.body.quantity);
+        const update = await store.updateOrderProductQuantity(id, quantity);
+        res.json(update);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 orderRouter.get('/orders', index);

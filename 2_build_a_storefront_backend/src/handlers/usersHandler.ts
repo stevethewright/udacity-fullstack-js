@@ -20,8 +20,15 @@ const index = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const users = await store.index();
-    res.json(users);
+
+    try {
+        const users = await store.index();
+        res.json(users);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
+    
 }
 
 const show = async (req: Request, res: Response) => {
@@ -33,9 +40,15 @@ const show = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.id);
-    const user = await store.show(id);
-    return res.json(user);
+
+    try {
+        const id: number = parseInt(req.params.id);
+        const user = await store.show(id);
+        return res.json(user);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -64,9 +77,15 @@ const destroy = async (req: Request, res: Response) => {
         res.json('Access denied, invalid token');
         return;
     }
-    const id: number = parseInt(req.params.id);
-    const deleted = await store.delete(id);
-    res.json(deleted);
+
+    try {
+        const id: number = parseInt(req.params.id);
+        const deleted = await store.delete(id);
+        res.json(deleted);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 }
 
 userRouter.get('/users', index);
