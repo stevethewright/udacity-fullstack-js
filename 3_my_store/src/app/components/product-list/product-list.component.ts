@@ -10,6 +10,7 @@ import { HttpService } from 'src/app/services/http.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
+  regularDistribution = 100 / 3 + '%';
 
   constructor(private httpService: HttpService){}
 
