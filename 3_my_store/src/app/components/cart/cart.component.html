@@ -28,7 +28,7 @@
                 <br />
                 <label>Credit Card Number</label>
                 <br />
-                <input type="text" name="creditCardNumber" placeholder="(16-digit number)" required minlength="16" required maxlength="16" [(ngModel)]="creditCardNumber"/>
+                <input type="text" name="creditCardNumber" placeholder="(16-digit number)" required minlength="16" required maxlength="16" required pattern="^\d{16}$" [(ngModel)]="creditCardNumber"/>
                 <br />
                 <caption class="caption-text">We'll never share your payment details with anyone else.</caption>
                 <input class="btn btn-primary" type="submit" value="Submit" [disabled]="form.invalid"/>
