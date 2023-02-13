@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -11,9 +12,14 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class ProductItemDetailComponent {
   @Input() product: Product = new Product();
+  @Input() quantity: number = 1;
   private routeSub: Subscription = new Subscription();
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute){}
+  constructor(
+    private httpService: HttpService,
+    private cartService: CartService,
+    private route: ActivatedRoute
+  ){}
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
@@ -25,6 +31,14 @@ export class ProductItemDetailComponent {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
+  }
+
+  addItemToCart() {
+    this.cartService.addItem(this.product, this.quantity);
+  }
+
+  updateQuantity(quantity: string) {
+    this.quantity = parseInt(quantity);
   }
 
 }

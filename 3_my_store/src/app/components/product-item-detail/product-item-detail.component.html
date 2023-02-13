@@ -6,11 +6,11 @@
         <br />
         <label>{{ product.description }}</label>
         <br />
-        <select class="select-input">
+        <select class="select-input" [ngModel]="quantity" (ngModelChange)="updateQuantity($event)">
             <option *ngFor="let quantity of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"> {{ quantity }}</option>
         </select>
         <br />
-        <button class="btn btn-primary">Add to cart</button>
+        <button class="btn btn-primary" (click)="addItemToCart()">Add to cart</button>
         <br />
         <a routerLink="" class="link-primary back-link">← Back to product list</a>
     </div>
