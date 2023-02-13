@@ -12,6 +12,7 @@ import { ProductItemComponent } from './components/product-item/product-item.com
 import { ProductItemDetailComponent } from './components/product-item-detail/product-item-detail.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     CartComponent,
     HeaderComponent,
     ProductItemComponent,
-    ProductItemDetailComponent
+    ProductItemDetailComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

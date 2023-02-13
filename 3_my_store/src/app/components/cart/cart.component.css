@@ -43,3 +43,7 @@ img {
     justify-content: center;
     margin-top: 64px;
 }
+
+.caption-text {
+    width: 100%;
+}

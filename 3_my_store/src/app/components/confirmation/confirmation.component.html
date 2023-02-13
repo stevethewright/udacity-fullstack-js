@@ -1,0 +1,15 @@
+<div *ngIf="cart.length === 0; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <h1 class="error-message">Error: Please try again.</h1>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="confirmation-container">
+        <div class="confirmation-items">
+            <h1 class="confirmation-header confirmation-item">Success!</h1>
+            <p class="confirmation-item">Thank you, {{ params.fullName }}!</p>
+            <p class="confirmation-item">Your ${{ params.totalPrice }} order is confirmed!</p>
+            <p class="confirmation-item">Please allow 1-3 business day(s) for shipping.</p>
+            <button class="btn btn-primary" routerLink="">Back to product list</button>
+        </div>
+    </div>
+</ng-template>
