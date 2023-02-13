@@ -4,7 +4,20 @@ MyStore is Angular application that allows users to view a list of available pro
 
 ## Getting Started
 
-To use these files, simply merge the folders into the root directory of your scaffolded Angular application.
+To install the Angular application and all dependencies:
+```
+npm install
+```
+
+To run the backend application:
+```
+json-server db.json 
+```
+
+To run the Angular application:
+```
+ng serve
+```
 
 ## Project Instructions
 
