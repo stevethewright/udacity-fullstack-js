@@ -39,7 +39,11 @@ export class CartComponent {
     let productId = parseInt((<HTMLInputElement>(e.target!)).id);
     let cartItem: CartItem | undefined= this.cartService.getCart().find(item => item.product.id === productId);
     let quantity: number = parseInt((<HTMLInputElement>(e.target!)).value);
-    console.log(cartItem)
+    if (quantity <= 0) {
+      this.cartService.removeItem(productId);
+      alert('Product removed.');
+      cartItem = undefined;
+    }
     if (cartItem !== undefined) {
       this.cartService.updateCartItemQuantity(cartItem, quantity);
     }
