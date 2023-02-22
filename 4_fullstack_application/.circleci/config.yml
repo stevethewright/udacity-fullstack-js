@@ -82,7 +82,6 @@ jobs:
             echo "# TODO: Install, build, deploy in both apps"
             cd 4_fullstack_application/
             npm run deploy
-    # TODO: Install, build, deploy in both apps
             
 workflows:
   udagram:

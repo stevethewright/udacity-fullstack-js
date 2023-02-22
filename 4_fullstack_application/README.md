@@ -1,6 +1,13 @@
 # Hosting a Full-Stack Application
 
-### **You can use you own project completed in previous courses or use the provided Udagram app for completing this final project.**
+# Udagram
+Udagram is a social media website where users can upload images. Created by Udacity. Hosted on AWS using an S3 Bucket, Elastic Beanstalk and RDS.
+
+## Links
+- Frontend: http://udagram-bucket-786172554301.s3-website-us-east-1.amazonaws.com/home
+- Backend: http://udagram-api-dev-sw.us-east-1.elasticbeanstalk.com/api/v0
+![Frontend](./docs/images/udagram-bucket-frontend.png)
+![Backend](./docs/images/udagram-eb-backend.png)
 
 ---
 
