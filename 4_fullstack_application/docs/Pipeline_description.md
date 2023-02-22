@@ -18,3 +18,13 @@ The hold stage waits for approval to continue onto the deploy stage. This is to 
 
 ## Stage 3 - Deploy
 After approval has been given, the pipeline begins the deploy stage. This is where the AWS Cloud services of S3 and EB are made use of. The frontend is installed, built and uploaded to the S3 service whilst the API is installed and built on the EB service.
+
+# Demonstration of CircleCI Pipleline in Action
+## Overview
+![Overview](./images/circleci-overview.png)
+### Build Stage
+![Build Stage](./images/circleci-build.png)
+### Hold Stage
+![Hold Stage](./images/circleci-hold.png)
+### Deploy Stage
+![Deploy Stage](./images/circleci-deploy.png)
