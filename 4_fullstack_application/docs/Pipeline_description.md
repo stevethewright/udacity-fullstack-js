@@ -28,3 +28,5 @@ After approval has been given, the pipeline begins the deploy stage. This is whe
 ![Hold Stage](./images/circleci-hold.png)
 ### Deploy Stage
 ![Deploy Stage](./images/circleci-deploy.png)
+## Screenshot of Circle CI Environment Variables
+![Environment Variables](./images/circleci-env.png)
