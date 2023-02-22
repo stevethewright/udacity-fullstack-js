@@ -29,22 +29,42 @@ jobs:
       - run:
           name: Install API Dependencies
           command: |
-           echo "TODO: Install dependencies in the the backend API  "
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            cd 4_fullstack_application/
+            npm run api:install
       # TODO: Lint the frontend
       - run:
           name: Front-End Lint
           command: |
-            echo "TODO: Lint the frontend"
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            cd 4_fullstack_application/
+            npm run frontend:lint
       # TODO: Build the frontend app
       - run:
           name: Front-End Build
           command: |
-            echo "TODO: Build the frontend app"
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            cd 4_fullstack_application/
+            npm run frontend:build
       # TODO: Build the backend API      
       - run:
           name: API Build
           command: |
-            echo "TODO: Build the backend API"
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            cd 4_fullstack_application/
+            npm run api:build
   # deploy step will run only after manual approval
   deploy:
     docker:
